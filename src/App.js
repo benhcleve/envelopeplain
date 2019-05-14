@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import zupage from "zupage";
+import envelopeimage from "./Envelope.png";
+import envelopeopenimage from "./EnvelopeOpen.png";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const ShowLetter = props => {
+  if (props.showPaper) {
+    return <div className="letter letterup">{props.body}</div>;
+  } else return null;
+};
+
+export default class App extends Component {
+  state = {
+    post: {},
+    envelope: envelopeimage,
+    envAnimation: "hovering",
+    showPaper: false
+  };
+
+  async componentDidMount() {
+    const response = await zupage.getCurrentPost();
+
+    this.setState({
+      post: response
+    });
+  }
+
+  onOpenLetter() {
+    this.setState({
+      envelope: envelopeopenimage,
+      envAnimation: "envopen",
+      showPaper: true
+    });
+  }
+
+  render() {
+    return (
+      <div className="background">
+        <div>
+          <img
+            className={`envelope ${this.state.envAnimation}`}
+            src={this.state.envelope}
+            alt="Loading..."
+            onClick={this.onOpenLetter.bind(this)}
+          />
+        </div>
+        <div>
+          <ShowLetter
+            showPaper={this.state.showPaper}
+            body={this.state.post.body}
+          />
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;

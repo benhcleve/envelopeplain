@@ -1,33 +1,92 @@
-.App {
-  text-align: center;
+.background {
+  background-color: rgb(0, 0, 0);
+  background-size: cover;
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.envelope {
+  display: block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.letter {
+  background-image: url(LetterPaper.png);
+
+  margin: 10px auto;
+  width: 50%;
+  padding: 10%;
+  font-family: "Macondo Swash Caps", cursive;
+  font-size: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes envelopehover {
+  0% {
+    transform: translateY(-5em);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: translateY(-10em);
   }
+  100% {
+    transform: translateY(-5em);
+  }
+}
+
+@keyframes envelopeopen {
+  0% {
+    transform: translateY(-5em);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-5em) scale(1.3);
+    opacity: 1;
+  }
+  99% {
+    transform: translateY(-5em) scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes lettermoveup {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    transform: translateY(-30%) scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 5%;
+    left: 15%;
+    opacity: 1;
+  }
+}
+
+.hovering {
+  animation: envelopehover 3s infinite;
+}
+
+.envopen {
+  animation: envelopeopen 1s;
+  animation-fill-mode: forwards;
+}
+
+.letterup {
+  animation: lettermoveup 2s;
+  animation-fill-mode: forwards;
 }
